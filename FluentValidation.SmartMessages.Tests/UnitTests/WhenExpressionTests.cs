@@ -7,9 +7,9 @@ namespace FluentValidation.SmartMessages.Tests.UnitTests
     public class WhenExpressionTests
     {
         [Fact]
-        public void When_expression_apply_to_current_validator_should_replace_previous_message()
+        public void When_expression_apply_to_current_validator_should_replace_previous_message_override_1()
         {
-            var validator = new WhenExpressionApplyToCurrentValidator();
+            var validator = new WhenExpressionApplyToCurrentValidator_Override1();
             var model = new WhenExpressionModel();
 
             var result = validator.Validate(model);
@@ -17,15 +17,40 @@ namespace FluentValidation.SmartMessages.Tests.UnitTests
             result.Errors[0].ErrorMessage.Should().BeEquivalentTo("'First Name' must not be empty. Когда SecondName == null для NotEmpty (CurrentValidator)");
             result.Errors[1].ErrorMessage.Should().BeEquivalentTo("'First Name' must be equal to 'Foo'. Когда SecondName == null для Equal (CurrentValidator)");
         }
-        internal class WhenExpressionApplyToCurrentValidator : SmartValidator<WhenExpressionModel>
+
+        internal class WhenExpressionApplyToCurrentValidator_Override1 : SmartValidator<WhenExpressionModel>
         {
-            public WhenExpressionApplyToCurrentValidator()
+            public WhenExpressionApplyToCurrentValidator_Override1()
             {
                 RuleFor(customer => customer.FirstName)
                     .NotEmpty()
                         .When(customer => customer.SecondName == null, msg => $"{msg} Когда SecondName == null для NotEmpty (CurrentValidator)", ApplyConditionTo.CurrentValidator)
                     .Equal("Foo")
                         .When(customer => customer.SecondName == null, msg => $"{msg} Когда SecondName == null для Equal (CurrentValidator)", ApplyConditionTo.CurrentValidator);
+            }
+        }
+
+        [Fact]
+        public void When_expression_apply_to_current_validator_should_replace_previous_message_override_2()
+        {
+            var validator = new WhenExpressionApplyToCurrentValidator_Override2();
+            var model = new WhenExpressionModel();
+
+            var result = validator.Validate(model);
+
+            result.Errors[0].ErrorMessage.Should().BeEquivalentTo("'First Name' must not be empty. Когда SecondName == null для NotEmpty (CurrentValidator)");
+            result.Errors[1].ErrorMessage.Should().BeEquivalentTo("'First Name' must be equal to 'Foo'. Когда SecondName == null для Equal (CurrentValidator)");
+        }
+
+        internal class WhenExpressionApplyToCurrentValidator_Override2 : SmartValidator<WhenExpressionModel>
+        {
+            public WhenExpressionApplyToCurrentValidator_Override2()
+            {
+                RuleFor(customer => customer.FirstName)
+                    .NotEmpty()
+                        .When((customer, context) => customer.SecondName == null, msg => $"{msg} Когда SecondName == null для NotEmpty (CurrentValidator)", ApplyConditionTo.CurrentValidator)
+                    .Equal("Foo")
+                        .When((customer, context) => customer.SecondName == null, msg => $"{msg} Когда SecondName == null для Equal (CurrentValidator)", ApplyConditionTo.CurrentValidator);
             }
         }
 
