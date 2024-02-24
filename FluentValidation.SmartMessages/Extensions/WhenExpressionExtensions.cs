@@ -2,7 +2,7 @@
 
 namespace FluentValidation.SmartMessages.Extensions
 {
-    public static class RuleBuilderOptionsExtensions
+    public static class WhenExpressionExtensions
     {
         public static IRuleBuilderOptions<T, TProperty> When<T, TProperty>(this IRuleBuilderOptions<T, TProperty> rule, Func<T, bool> predicate, Func<string, string> func, ApplyConditionTo applyConditionTo = ApplyConditionTo.AllValidators)
         {
