@@ -3,22 +3,22 @@ using FluentValidation.TestHelper;
 
 namespace FluentValidation.SmartMessages.Tests.UnitTests
 {
-    public class ScopeTopLevelTests
+    public class GroupTopLevelTests
     {
         [Fact]
         public void Test()
         {
-            var validator = new ScopeModelValidator();
+            var validator = new GroupModelValidator();
             var model = new ScopeModel();
 
             var result = validator.TestValidate(model);
         }
 
-        public class ScopeModelValidator : SmartValidator<ScopeModel>
+        public class GroupModelValidator : SmartValidator<ScopeModel>
         {
-            public ScopeModelValidator()
+            public GroupModelValidator()
             {
-                Scope(bag =>
+                Group(bag =>
                 {
                     RuleFor(model => model.FirstName).NotNull().AttachTo(bag);
                     RuleFor(model => model.SecondName).NotNull().AttachTo(bag);

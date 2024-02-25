@@ -1,6 +1,6 @@
 ﻿namespace FluentValidation.SmartMessages.Enums
 {
-    public enum ApplyScopeTo
+    public enum ApplyGroupTo
     {
         AllValidators,
         CurrentValidator

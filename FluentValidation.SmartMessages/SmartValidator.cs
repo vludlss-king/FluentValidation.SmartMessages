@@ -15,13 +15,13 @@ namespace FluentValidation.SmartMessages
             return new WhenConditionBuilder(conditionBuilder, ruleBag);
         }
 
-        public ScopeBuilder Scope(Action<RuleBag> action)
+        public GroupBuilder Group(Action<RuleBag> action)
         {
             var ruleBag = new RuleBag();
 
             action(ruleBag);
 
-            return new ScopeBuilder(ruleBag);
+            return new GroupBuilder(ruleBag);
         }
     }
 }

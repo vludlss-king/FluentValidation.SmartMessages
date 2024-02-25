@@ -5,11 +5,11 @@ namespace FluentValidation.SmartMessages.Extensions
 {
     public static class ScopeExpressionExtensions
     {
-        public static IRuleBuilderOptions<T, TProperty> Scope<T, TProperty>(this IRuleBuilderOptions<T, TProperty> rule, Func<string, string> func, ApplyScopeTo applyScopeTo = ApplyScopeTo.AllValidators)
+        public static IRuleBuilderOptions<T, TProperty> Group<T, TProperty>(this IRuleBuilderOptions<T, TProperty> rule, Func<string, string> func, ApplyGroupTo applyGroupTo = ApplyGroupTo.AllValidators)
         {
             return rule.Configure(cfg =>
             {
-                if (applyScopeTo == ApplyScopeTo.AllValidators)
+                if (applyGroupTo == ApplyGroupTo.AllValidators)
                 {
                     foreach (IRuleComponent<T, TProperty> component in cfg.Components)
                     {

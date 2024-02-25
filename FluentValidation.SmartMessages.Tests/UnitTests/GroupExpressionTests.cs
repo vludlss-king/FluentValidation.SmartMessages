@@ -5,7 +5,7 @@ using FluentValidation.TestHelper;
 
 namespace FluentValidation.SmartMessages.Tests.UnitTests
 {
-    public class ScopeExpressionTests
+    public class GroupExpressionTests
     {
         [Fact]
         public void Test()
@@ -25,7 +25,7 @@ namespace FluentValidation.SmartMessages.Tests.UnitTests
             {
                 RuleFor(model => model.FirstName).MaximumLength(3)
                     .Equal("str")
-                    .Scope(msg => $"{msg} Просто область", ApplyScopeTo.CurrentValidator);
+                    .Group(msg => $"{msg} Просто область", ApplyGroupTo.CurrentValidator);
             }
         }
 

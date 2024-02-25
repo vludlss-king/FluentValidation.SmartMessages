@@ -16,8 +16,8 @@ namespace FluentValidation.SmartMessages.Tests.UnitTests
             var validator = new WhenTopLevelModelValidator();
             var model = new WhenTopLevelModel()
             {
-                FirstName = null,
-                SecondName = "test"
+                FirstName = "test",
+                SecondName = "test",
             };
 
             var result = validator.TestValidate(model);
@@ -33,11 +33,16 @@ namespace FluentValidation.SmartMessages.Tests.UnitTests
         {
             public WhenTopLevelModelValidator()
             {
-                When(model => model.FirstName != null, bag =>
+                When(model => model.FirstName != null, bagFirst =>
                 {
-                    RuleFor(model => model.FirstName).Equal("FirstName1").AttachTo(bag);
+                    When(modelSecond => modelSecond.SecondName != null, bagSecond =>
+                    {
+                        RuleFor(model => model.FirstName).Equal("FirstName1").AttachTo(bagSecond);
+                    })
+                    .WithMessage(msg => $"{msg} Внутренний When", bagFirst);
+
                 })
-                .WithMessage(msg => $"{msg} Когда FirstName != null")
+                .WithMessage(msg => $"{msg} Внешний When")
                 .Otherwise(bag =>
                 {
                     RuleFor(model => model.SecondName).Equal("SecondName1").AttachTo(bag);

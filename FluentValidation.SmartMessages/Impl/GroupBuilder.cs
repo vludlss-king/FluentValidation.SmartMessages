@@ -3,11 +3,11 @@ using FluentValidation.SmartMessages.Helpers;
 
 namespace FluentValidation.SmartMessages.Impl
 {
-    public class ScopeBuilder
+    public class GroupBuilder
     {
         private readonly RuleBag _ruleBag;
 
-        public ScopeBuilder(RuleBag ruleBag)
+        public GroupBuilder(RuleBag ruleBag)
         {
             _ruleBag = ruleBag;    
         }
