@@ -5,34 +5,29 @@ namespace FluentValidation.SmartMessages.Impl
 {
     public class SmartConditionBuilder : ISmartConditionBuilder
     {
-        private readonly IConditionBuilder _conditionBuilder;
         private IReadOnlyList<IRuleComponent> _rulesComponents;
+        private readonly IConditionBuilder _conditionBuilder;
 
         public SmartConditionBuilder(IConditionBuilder conditionBuilder, IReadOnlyList<IRuleComponent> rulesComponents)
         {
+            _rulesComponents = rulesComponents;
             _conditionBuilder = conditionBuilder;
-            _rulesComponents = rulesComponents;  
         }
 
-        public ISmartConditionBuilder WithMessage(Func<string, string> func)
+        public ISmartConditionBuilder Otherwise(Action<RuleBag> action)
         {
-            foreach(dynamic component in _rulesComponents)
-            {
-                var previousMessage = component.GetUnformattedErrorMessage();
-                component.SetErrorMessage(func(previousMessage));
-            }
-
-            return this;
-        }
-
-        public ISmartConditionBuilder Otherwise(Action<ConditionBag> action)
-        {
-            var conditionBag = new ConditionBag();
+            var conditionBag = new RuleBag();
 
             _conditionBuilder.Otherwise(() => action(conditionBag));
             _rulesComponents = conditionBag.ExtractRulesComponents();
             
             return this;
+        }
+
+        public ISmartConditionBuilder WithMessage(Func<string, string> func)
+        {
+            var bagWithMessage = new BagWithMessage<ISmartConditionBuilder>(this, _rulesComponents);
+            return bagWithMessage.WithMessage(func);
         }
     }
 }

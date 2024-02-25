@@ -1,8 +1,7 @@
 ﻿namespace FluentValidation.SmartMessages.Contracts
 {
-    public interface ISmartConditionBuilder
+    public interface ISmartConditionBuilder : IBagWithMessage<ISmartConditionBuilder>
     {
-        ISmartConditionBuilder WithMessage(Func<string, string> func);
-        ISmartConditionBuilder Otherwise(Action<ConditionBag> action);
+        ISmartConditionBuilder Otherwise(Action<RuleBag> action);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace FluentValidation.SmartMessages
 {
-    public class ConditionBag
+    public class RuleBag
     {
         private readonly List<IRuleComponent> _rulesComponents;
 
-        public ConditionBag()
+        public RuleBag()
         {
             _rulesComponents = new();
         }
