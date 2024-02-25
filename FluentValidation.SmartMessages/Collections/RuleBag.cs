@@ -14,6 +14,11 @@ namespace FluentValidation.SmartMessages.Collections
         public void Attach<T, TProperty>(IRuleBuilderOptions<T, TProperty> rule)
             => rule.Configure(cfg => _rulesComponents.AddRange(cfg.Components));
 
+        public void Attach(RuleBag ruleBag)
+        {
+            _rulesComponents.AddRange(ruleBag.ExtractRulesComponents());
+        }
+
         public IReadOnlyList<IRuleComponent> ExtractRulesComponents() => _rulesComponents;
     }
 }

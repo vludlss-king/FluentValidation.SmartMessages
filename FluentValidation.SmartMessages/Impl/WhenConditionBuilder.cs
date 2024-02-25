@@ -19,9 +19,13 @@ namespace FluentValidation.SmartMessages.Impl
             return new OtherwiseConditionBuilder(_conditionBuilder).Otherwise(action);
         }
 
-        public OtherwiseConditionBuilder WithMessage(Func<string, string> func)
+        public OtherwiseConditionBuilder WithMessage(Func<string, string> func, RuleBag? parentRuleBag = null)
         {
             RuleBagHelper.WithMessage(_ruleBag, func);
+
+            if (parentRuleBag is not null)
+                parentRuleBag.Attach(_ruleBag);
+
             return new OtherwiseConditionBuilder(_conditionBuilder);
         }
     }
