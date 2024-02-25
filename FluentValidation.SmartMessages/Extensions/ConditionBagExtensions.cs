@@ -1,4 +1,6 @@
-﻿namespace FluentValidation.SmartMessages.Extensions
+﻿using FluentValidation.SmartMessages.Collections;
+
+namespace FluentValidation.SmartMessages.Extensions
 {
     public static class ConditionBagExtensions
     {

@@ -1,4 +1,6 @@
-﻿namespace FluentValidation.SmartMessages.Helpers
+﻿using FluentValidation.SmartMessages.Collections;
+
+namespace FluentValidation.SmartMessages.Helpers
 {
     internal class RuleBagHelper
     {

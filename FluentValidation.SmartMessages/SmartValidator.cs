@@ -1,4 +1,5 @@
-﻿using FluentValidation.SmartMessages.Impl;
+﻿using FluentValidation.SmartMessages.Collections;
+using FluentValidation.SmartMessages.Impl;
 
 namespace FluentValidation.SmartMessages
 {

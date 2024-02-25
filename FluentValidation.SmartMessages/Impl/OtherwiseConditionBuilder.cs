@@ -1,4 +1,6 @@
-﻿namespace FluentValidation.SmartMessages.Impl
+﻿using FluentValidation.SmartMessages.Collections;
+
+namespace FluentValidation.SmartMessages.Impl
 {
     public class OtherwiseConditionBuilder
     {

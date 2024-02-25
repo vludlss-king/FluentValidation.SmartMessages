@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Internal;
 
-namespace FluentValidation.SmartMessages
+namespace FluentValidation.SmartMessages.Collections
 {
     public class RuleBag
     {
