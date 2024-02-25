@@ -5,6 +5,9 @@ namespace FluentValidation.SmartMessages
 {
     public abstract class SmartValidator<T> : AbstractValidator<T>
     {
+        /// <summary>
+        /// Задать условие для выполнения группы правил
+        /// </summary>
         public WhenConditionBuilder When(Func<T, bool> predicate, Action<RuleBag> action)
         {
             var ruleBag = new RuleBag();
@@ -15,6 +18,9 @@ namespace FluentValidation.SmartMessages
             return new WhenConditionBuilder(conditionBuilder, ruleBag);
         }
 
+        /// <summary>
+        /// Задать область для переопределения сообщений у группы правил
+        /// </summary>
         public GroupBuilder Group(Action<RuleBag> action)
         {
             var ruleBag = new RuleBag();
